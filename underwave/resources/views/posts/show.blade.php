@@ -34,7 +34,19 @@
                                         {{ $post->content }}
                                     </p>
                                 </div>
-                            </div>
+                            </div>@if(Auth::id() === $post->user_id)
+                                <div class="mt-12 border-t-4 border-red-500 pt-6">
+                                    <form action="{{ route('posts.destroy', $post) }}" method="POST"
+                                        onsubmit="return confirm('WARNING: ¿Purgar este registro permanentemente de UnderWave?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="bg-red-500 text-black px-6 py-2 border-4 border-black font-mono font-bold hover:bg-black hover:text-red-500 transition-none shadow-brutal-sm active:translate-x-1 active:translate-y-1">
+                                            [X] PURGE_RECORD
+                                        </button>
+                                    </form>
+                                </div>
+                            @endif
                         </div>
 
                         <div

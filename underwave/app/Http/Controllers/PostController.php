@@ -36,4 +36,15 @@ class PostController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Post creado correctamente');
     }
+    public function destroy(Post $post)
+    {
+        // Medida de seguridad: ¿Es el usuario actual el dueño del post?
+        if ($post->user_id !== Auth::id()) {
+            abort(403, 'SYSTEM_ERROR: PERMISO DENEGADO.');
+        }
+
+        $post->delete();
+
+        return redirect()->route('dashboard');
+    }
 }
