@@ -24,7 +24,14 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required',
             'category' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validamos que sea una imagen de max 2MB
         ]);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            // Guarda la imagen y nos devuelve la ruta exacta
+            $imagePath = $request->file('image')->store('post_images', 'public');
+        }
 
         Post::create([
             'title' => $request->title,
@@ -32,6 +39,7 @@ class PostController extends Controller
             'category' => $request->category,
             'price_range' => $request->price_range,
             'user_id' => Auth::id(),
+            'image_path' => $imagePath, // Guardamos la ruta en la DB
         ]);
 
         return redirect()->route('dashboard')->with('success', 'Post creado correctamente');

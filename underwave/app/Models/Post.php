@@ -16,7 +16,8 @@ class Post extends Model
         'content',
         'category',
         'price_range',
-        'user_id'
+        'user_id',
+        'image_path'
     ];
 
     public function user()

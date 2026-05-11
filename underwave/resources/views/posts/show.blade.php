@@ -16,6 +16,12 @@
                             <h1 class="font-serif text-6xl uppercase leading-none mb-8 border-b-4 border-black pb-4">
                                 {{ $post->title }}
                             </h1>
+                            @if($post->image_path)
+                                <div class="mb-8 border-4 border-black shadow-brutal-sm">
+                                    <img src="{{ asset('storage/' . $post->image_path) }}"
+                                        alt="Cartel de {{ $post->title }}" class="w-full max-h-[500px] object-cover">
+                                </div>
+                            @endif
 
                             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                                 <div class="md:col-span-1 font-mono text-sm space-y-4">

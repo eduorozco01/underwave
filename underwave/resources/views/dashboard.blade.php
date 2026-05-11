@@ -21,6 +21,20 @@
                             <span class="bg-under-neon text-black px-2 font-bold">{{ strtoupper($post->category) }}</span>
                         </div>
 
+
+
+                        @if($post->image_path)
+                            <div class="border-b-4 border-black h-48 overflow-hidden bg-under-beige">
+                                <img src="{{ asset('storage/' . $post->image_path) }}" alt="Flyer"
+                                    class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300">
+                            </div>
+                        @else
+                            <div
+                                class="border-b-4 border-black h-12 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjRjJGMEU5Ij48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDBMOCA4Wk04IDBMMCA4WiIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuMSI+PC9wYXRoPgo8L3N2Zz4=')]">
+                            </div>
+                        @endif
+                        <div class="p-6 flex-grow"></div>
+
                         <div class="p-6 flex-grow">
                             <h3
                                 class="font-serif text-2xl mb-4 leading-none uppercase hover:text-under-neon transition-colors">

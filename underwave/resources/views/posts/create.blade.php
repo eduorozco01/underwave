@@ -8,7 +8,7 @@
                     <p class="font-mono text-xs opacity-50">[ SESSION_ACTIVE // DATABASE_READY ]</p>
                 </div>
 
-                <form action="{{ route('posts.store') }}" method="POST">
+                <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="mb-6">
@@ -37,6 +37,14 @@
                                 <option value="<10€">+10€</option>
                                 <option value=">10€">-10€</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block font-mono font-bold uppercase mb-2">Cartel / Flyer (Opcional):</label>
+                        <div
+                            class="border-2 border-dashed border-black p-4 bg-under-beige text-center hover:bg-under-neon transition-colors cursor-pointer">
+                            <input type="file" name="image" id="image"
+                                class="w-full font-mono text-sm cursor-pointer file:mr-4 file:py-2 file:px-4 file:border-2 file:border-black file:text-sm file:font-bold file:bg-black file:text-white hover:file:bg-under-neon hover:file:text-black file:transition-none">
                         </div>
                     </div>
 
