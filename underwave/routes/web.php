@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Models\Post;
-
+use App\Http\Controllers\CommentController;
 
 
 Route::get('/', function () {
@@ -30,3 +30,6 @@ require __DIR__ . '/auth.php';
 
 Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
 Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+
+
+Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');

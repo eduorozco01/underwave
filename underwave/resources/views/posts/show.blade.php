@@ -59,6 +59,44 @@
                                     </form>
                                 </div>
                             @endif
+                            <div class="mt-16 border-t-8 border-black pt-8">
+                                <h3 class="font-serif text-3xl uppercase mb-6 flex items-center gap-4">
+                                    <span
+                                        class="bg-black text-white px-3 py-1 text-sm font-mono align-middle">{{ $post->comments->count() }}</span>
+                                    USER_FEEDBACK
+                                </h3>
+
+                                <form action="{{ route('comments.store', $post) }}" method="POST" class="mb-10">
+                                    @csrf
+                                    <div class="flex flex-col border-4 border-black shadow-brutal-sm">
+                                        <textarea name="content" rows="3" placeholder="WRITE_YOUR_TRANSMISSION_HERE..."
+                                            class="w-full p-4 font-mono outline-none border-b-4 border-black resize-none focus:bg-under-neon/20"></textarea>
+                                        <div class="bg-under-beige p-2 flex justify-end">
+                                            <button type="submit"
+                                                class="bg-black text-white px-6 py-2 font-mono font-bold hover:bg-under-neon hover:text-black transition-none uppercase text-sm">
+                                                TRANSMIT >>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="space-y-6">
+                                    @foreach($post->comments()->latest()->get() as $comment)
+                                        <div
+                                            class="border-2 border-black p-4 {{ $comment->user_id === Auth::id() ? 'bg-under-neon/20' : 'bg-white' }}">
+                                            <div
+                                                class="flex justify-between items-center border-b-2 border-black pb-2 mb-3 font-mono text-xs">
+                                                <span class="font-bold uppercase">ID_USR: {{ $comment->user->name }}</span>
+                                                <span class="opacity-50">T:
+                                                    {{ $comment->created_at->format('H:i // d.m.y') }}</span>
+                                            </div>
+                                            <p class="font-mono text-sm leading-relaxed">
+                                                {{ $comment->content }}
+                                            </p>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
 
                         <div

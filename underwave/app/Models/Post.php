@@ -24,4 +24,9 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+    // Un post tiene muchos comentarios
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
