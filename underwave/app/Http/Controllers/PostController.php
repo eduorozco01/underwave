@@ -47,4 +47,33 @@ class PostController extends Controller
 
         return redirect()->route('dashboard');
     }
+    public function edit(Post $post)
+    {
+        if ($post->user_id !== Auth::id()) {
+            abort(403, 'SYSTEM_ERROR: PERMISO DENEGADO.');
+        }
+        return view('posts.edit', compact('post'));
+    }
+
+    public function update(Request $request, Post $post)
+    {
+        if ($post->user_id !== Auth::id()) {
+            abort(403, 'SYSTEM_ERROR: PERMISO DENEGADO.');
+        }
+
+        $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required',
+            'category' => 'required',
+        ]);
+
+        $post->update([
+            'title' => $request->title,
+            'content' => $request->input('content'),
+            'category' => $request->category,
+            'price_range' => $request->price_range,
+        ]);
+
+        return redirect()->route('posts.show', $post)->with('success', 'RECORD_UPDATED');
+    }
 }

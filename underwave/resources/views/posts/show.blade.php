@@ -35,7 +35,13 @@
                                     </p>
                                 </div>
                             </div>@if(Auth::id() === $post->user_id)
-                                <div class="mt-12 border-t-4 border-red-500 pt-6">
+
+                                <div class="mt-12 border-t-4 border-black pt-6 flex gap-4">
+
+                                    <a href="{{ route('posts.edit', $post) }}"
+                                        class="bg-under-neon text-black px-6 py-2 border-4 border-black font-mono font-bold hover:bg-black hover:text-under-neon transition-none shadow-brutal-sm active:translate-x-1 active:translate-y-1">
+                                        [~] EDIT_RECORD
+                                    </a>
                                     <form action="{{ route('posts.destroy', $post) }}" method="POST"
                                         onsubmit="return confirm('WARNING: ¿Purgar este registro permanentemente de UnderWave?');">
                                         @csrf
