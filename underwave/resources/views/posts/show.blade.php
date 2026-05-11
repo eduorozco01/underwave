@@ -27,7 +27,9 @@
                                 <div class="md:col-span-1 font-mono text-sm space-y-4">
                                     <div class="border-2 border-black p-3 bg-under-neon/20">
                                         <p class="font-bold border-b border-black mb-1">AUTHOR</p>
-                                        <p>{{ $post->user->name }}</p>
+                                        <p><a href="{{ route('users.show', $post->user) }}"
+                                                class="hover:text-under-neon hover:underline">{{ $post->user->name }}</a>
+                                        </p>
                                     </div>
                                     <div class="border-2 border-black p-3">
                                         <p class="font-bold border-b border-black mb-1">BUDGET</p>

@@ -53,7 +53,8 @@
                                 [PRICE_INDEX: {{ $post->price_range }}]
                             </div>
                             <div class="border border-black p-1 uppercase">
-                                [AUTH: {{ $post->user->name ?? 'UNKNOWN_ENTITY'}}]
+                                [AUTH: <a href="{{ route('users.show', $post->user) }}"
+                                    class="hover:text-under-neon hover:underline">{{ $post->user->name ?? 'UNKNOWN_ENTITY' }}</a>]
                             </div>
                         </div>
                     </div>

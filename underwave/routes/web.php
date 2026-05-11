@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Models\Post;
 use App\Http\Controllers\CommentController;
-
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,3 +33,6 @@ Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.upda
 
 
 Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+
+
+Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
