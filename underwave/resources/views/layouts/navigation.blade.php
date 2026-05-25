@@ -1,12 +1,14 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-[#F2F0E9] border-b-4 border-black relative z-50">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                    <a href="{{ route('dashboard') }}" class="flex items-center">
+                        <span class="font-serif text-2xl font-black uppercase tracking-tighter text-black bg-[#D4FF00] px-3 py-1 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-black hover:text-[#D4FF00] transition-colors">
+                            UnderWave
+                        </span>
                     </a>
                 </div>
 
@@ -15,15 +17,51 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('transmissions.index')" :active="request()->routeIs('transmissions.index')">
+                        {{ __('Transmisiones') }}
+                    </x-nav-link>
                 </div>
             </div>
+            <!-- Theme Switcher & Settings Dropdown -->
+            <div class="hidden sm:flex sm:items-center sm:ml-6 gap-6">
+                <!-- Theme Switcher -->
+                <div x-data="{ 
+                        theme: localStorage.getItem('theme') || 'fanzine',
+                        setTheme(newTheme) {
+                            this.theme = newTheme;
+                            localStorage.setItem('theme', newTheme);
+                            if (newTheme === 'fanzine') {
+                                document.documentElement.removeAttribute('data-theme');
+                            } else {
+                                document.documentElement.setAttribute('data-theme', newTheme);
+                            }
+                        }
+                    }" 
+                    x-init="if(theme !== 'fanzine') document.documentElement.setAttribute('data-theme', theme)"
+                    class="flex space-x-2 font-mono text-xs items-center text-uw-text">
+                    
+                    <span class="uppercase font-bold mr-2">TEMA:</span>
+                    
+                    <button @click="setTheme('fanzine')" 
+                        class="w-6 h-6 border-2 border-uw-border bg-[#F2F0E9] hover:scale-110 transition-transform shadow-[2px_2px_0px_0px_var(--color-border)]"
+                        title="Fanzine"></button>
+                        
+                    <button @click="setTheme('hacker')" 
+                        class="w-6 h-6 border-2 border-[#FFFFFF] bg-[#121212] hover:scale-110 transition-transform shadow-[2px_2px_0px_0px_#FFFFFF]"
+                        title="Fotocopia Oscura"></button>
 
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+                    <button @click="setTheme('y2k')" 
+                        class="w-6 h-6 border-2 border-uw-border bg-[#FFB8D1] hover:scale-110 transition-transform shadow-[2px_2px_0px_0px_var(--color-border)]"
+                        title="Y2K Pop"></button>
+                </div>
+
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                        <button class="inline-flex items-center gap-2 px-3 py-2 border-2 border-uw-border font-mono font-bold text-sm text-uw-text bg-uw-card hover:bg-uw-accent hover:text-black focus:outline-none transition-none shadow-brutal-sm active:translate-x-1 active:translate-y-1">
+                            @if(Auth::user()->avatar_path)
+                                <img src="{{ Auth::user()->avatar_path }}" alt="Avatar" class="w-6 h-6 border border-uw-border bg-uw-card">
+                            @endif
+                            <div class="uppercase">{{ Auth::user()->name }}</div>
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -65,18 +103,53 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-uw-bg border-t border-uw-border">
+        <!-- Mobile Theme Switcher -->
+        <div class="p-4 border-b border-uw-border">
+            <div x-data="{ 
+                    theme: localStorage.getItem('theme') || 'fanzine',
+                    setTheme(newTheme) {
+                        this.theme = newTheme;
+                        localStorage.setItem('theme', newTheme);
+                        if (newTheme === 'fanzine') {
+                            document.documentElement.removeAttribute('data-theme');
+                        } else {
+                            document.documentElement.setAttribute('data-theme', newTheme);
+                        }
+                    }
+                }" 
+                class="flex space-x-2 font-mono text-xs items-center text-uw-text">
+                
+                <span class="uppercase font-bold mr-2">TEMA:</span>
+                
+                <button @click="setTheme('fanzine')" 
+                    class="w-6 h-6 border-2 border-uw-border bg-[#F2F0E9] hover:scale-110 transition-transform shadow-[2px_2px_0px_0px_var(--color-border)]"
+                    title="Fanzine"></button>
+                    
+                <button @click="setTheme('hacker')" 
+                    class="w-6 h-6 border-2 border-[#FFFFFF] bg-[#121212] hover:scale-110 transition-transform shadow-[2px_2px_0px_0px_#FFFFFF]"
+                    title="Fotocopia Oscura"></button>
+
+                <button @click="setTheme('y2k')" 
+                    class="w-6 h-6 border-2 border-uw-border bg-[#FFB8D1] hover:scale-110 transition-transform shadow-[2px_2px_0px_0px_var(--color-border)]"
+                    title="Y2K Pop"></button>
+            </div>
+        </div>
+
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('transmissions.index')" :active="request()->routeIs('transmissions.index')">
+                {{ __('Transmisiones') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-4 pb-1 border-t border-uw-border">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                <div class="font-medium text-base text-uw-text">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-sm opacity-60">{{ Auth::user()->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1">

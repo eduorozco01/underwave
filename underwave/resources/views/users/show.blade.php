@@ -14,18 +14,25 @@
                             </span>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-lg">
-                            <div class="border-2 border-black p-4 bg-under-beige">
-                                <p class="text-xs opacity-50 mb-1 uppercase">ID_Alias</p>
-                                <p class="font-bold uppercase">{{ $user->name }}</p>
-                            </div>
-                            <div class="border-2 border-black p-4 bg-under-beige">
-                                <p class="text-xs opacity-50 mb-1 uppercase">Registration_Date</p>
-                                <p class="font-bold">{{ $user->created_at->format('d.m.Y') }}</p>
-                            </div>
-                            <div class="border-2 border-black p-4 bg-under-beige">
-                                <p class="text-xs opacity-50 mb-1 uppercase">Total_Transmissions</p>
-                                <p class="font-bold">{{ $posts->count() }} POSTS</p>
+                        <div class="flex flex-col md:flex-row gap-8 mb-6 items-start">
+                            @if($user->avatar_path)
+                                <div class="shrink-0">
+                                    <img src="{{ $user->avatar_path }}" alt="Avatar" class="w-32 h-32 border-4 border-black shadow-brutal-sm bg-under-neon p-2">
+                                </div>
+                            @endif
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-lg w-full">
+                                <div class="border-2 border-black p-4 bg-under-beige">
+                                    <p class="text-xs opacity-50 mb-1 uppercase">ID_Alias</p>
+                                    <p class="font-bold uppercase">{{ $user->name }}</p>
+                                </div>
+                                <div class="border-2 border-black p-4 bg-under-beige">
+                                    <p class="text-xs opacity-50 mb-1 uppercase">Registration_Date</p>
+                                    <p class="font-bold">{{ $user->created_at->format('d.m.Y') }}</p>
+                                </div>
+                                <div class="border-2 border-black p-4 bg-under-beige">
+                                    <p class="text-xs opacity-50 mb-1 uppercase">Total_Transmissions</p>
+                                    <p class="font-bold">{{ $posts->count() }} POSTS</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -67,7 +74,12 @@
                                 <div
                                     class="border-t-2 border-black p-4 bg-under-beige/30 font-mono text-[10px] grid grid-cols-2 gap-2">
                                     <div class="border border-black p-1">[PRICE_INDEX: {{ $post->price_range }}]</div>
-                                    <div class="border border-black p-1 uppercase">[AUTH: {{ $post->user->name }}]</div>
+                                    <div class="border border-black p-1 uppercase flex items-center gap-2">
+                                        @if($post->user->avatar_path)
+                                            <img src="{{ $post->user->avatar_path }}" alt="Avatar" class="w-3 h-3 border border-black bg-white">
+                                        @endif
+                                        <span>[AUTH: {{ $post->user->name }}]</span>
+                                    </div>
                                 </div>
 
                             </div>

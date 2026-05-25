@@ -1,3 +1,54 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* TEMA POR DEFECTO: FANZINE CLÁSICO */
+:root {
+    --color-bg: #F2F0E9;
+    --color-text: #000000;
+    --color-border: #000000;
+    --color-accent: #D4FF00;
+    --color-card: #FFFFFF;
+}
+
+/* TEMA: FOTOCOPIA MONOCROMA (DARK MODE) */
+[data-theme="hacker"] {
+    --color-bg: #121212;
+    --color-text: #F3F3F3; /* Blanco ceniza suave */
+    --color-border: #FFFFFF; /* Bordes blanco puro */
+    --color-accent: #FFFFFF; /* Acento blanco puro */
+    --color-card: #222222; /* Tarjetas gris fotocopia */
+}
+
+/* TEMA: Y2K POP */
+[data-theme="y2k"] {
+    --color-bg: #FFB8D1; /* Rosa Chicle */
+    --color-text: #000000;
+    --color-border: #000000;
+    --color-accent: #00FFFF; /* Cyan */
+    --color-card: #FFFFFF;
+}
+
+/* Aplicamos el fondo y el color de texto globalmente al body */
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+}
+
+/* SCROLLBAR INDUSTRIAL NEO-BRUTALISTA */
+::-webkit-scrollbar {
+    width: 14px;
+}
+::-webkit-scrollbar-track {
+    background: var(--color-bg);
+    border-left: 3px solid var(--color-border);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border: 3px solid var(--color-border);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+    border: 3px solid var(--color-border);
+}
