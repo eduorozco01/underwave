@@ -7,13 +7,23 @@
                     <h2 class="font-serif text-3xl uppercase">SUBMIT_NEW_ENTRY</h2>
                     <p class="font-mono text-xs opacity-50">[ SESSION_ACTIVE // DATABASE_READY ]</p>
                 </div>
+                @if($errors->any())
+                    <div class="mb-6 bg-red-400 border-4 border-black p-4 shadow-brutal font-mono text-sm font-bold text-black">
+                        <p class="font-bold border-b border-black pb-2 mb-2">>> ERR_VALIDATION_FAILED:</p>
+                        <ul class="list-disc pl-5">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="mb-6">
                         <label class="block font-mono font-bold uppercase mb-2">Artistas / Evento:</label>
-                        <input type="text" name="title"
+                        <input type="text" name="title" value="{{ old('title') }}"
                             class="w-full border-2 border-black p-3 focus:bg-under-neon outline-none transition-none font-mono"
                             placeholder="EJ: DIAMANTE NEGRO EN SALA X">
                     </div>
@@ -23,19 +33,19 @@
                             <label class="block font-mono font-bold uppercase mb-2">Categoría:</label>
                             <select name="category"
                                 class="w-full border-2 border-black p-3 bg-white font-mono appearance-none">
-                                <option value="Musica">MÚSICA</option>
-                                <option value="Teatro">TEATRO</option>
-                                <option value="Mercadillo">MERCADILLO</option>
-                                <option value="Arte">ARTE</option>
+                                <option value="Musica" {{ old('category') == 'Musica' ? 'selected' : '' }}>MÚSICA</option>
+                                <option value="Teatro" {{ old('category') == 'Teatro' ? 'selected' : '' }}>TEATRO</option>
+                                <option value="Mercadillo" {{ old('category') == 'Mercadillo' ? 'selected' : '' }}>MERCADILLO</option>
+                                <option value="Arte" {{ old('category') == 'Arte' ? 'selected' : '' }}>ARTE</option>
                             </select>
                         </div>
 
                         <div>
                             <label class="block font-mono font-bold uppercase mb-2">Presupuesto:</label>
                             <select name="price_range" class="w-full border-2 border-black p-3 bg-white font-mono">
-                                <option value="Gratis">GRATIS</option>
-                                <option value="<10€">+10€</option>
-                                <option value=">10€">-10€</option>
+                                <option value="Gratis" {{ old('price_range') == 'Gratis' ? 'selected' : '' }}>GRATIS</option>
+                                <option value="<10€" {{ old('price_range') == '<10€' ? 'selected' : '' }}>+10€</option>
+                                <option value=">10€" {{ old('price_range') == '>10€' ? 'selected' : '' }}>-10€</option>
                             </select>
                         </div>
                     </div>
@@ -51,7 +61,7 @@
                     <div class="mb-6">
                         <label class="block font-mono font-bold uppercase mb-2">Descripción / Bio:</label>
                         <textarea name="content" rows="4"
-                            class="w-full border-2 border-black p-3 focus:bg-under-neon outline-none font-mono"></textarea>
+                            class="w-full border-2 border-black p-3 focus:bg-under-neon outline-none font-mono">{{ old('content') }}</textarea>
                     </div>
 
                     <button type="submit"
