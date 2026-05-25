@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar_path',
     ];
 
     /**
@@ -45,5 +46,16 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function transmissions()
+    {
+        return $this->hasMany(Transmission::class);
+    }
+
+    // Los eventos (posts) a los que el usuario va a asistir
+    public function attendedEvents()
+    {
+        return $this->belongsToMany(Post::class, 'post_user')->withTimestamps();
     }
 }

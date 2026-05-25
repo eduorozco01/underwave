@@ -29,4 +29,10 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    // Los usuarios que asisten a este evento
+    public function attendees()
+    {
+        return $this->belongsToMany(User::class, 'post_user')->withTimestamps();
+    }
 }

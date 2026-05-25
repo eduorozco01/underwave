@@ -24,7 +24,7 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required',
             'category' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validamos que sea una imagen de max 2MB
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20480', // Validamos que sea una imagen de max 20MB
         ]);
 
         $imagePath = null;
