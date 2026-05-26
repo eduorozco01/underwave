@@ -71,6 +71,7 @@
                         'title' => $post->title,
                         'category' => $post->category,
                         'price_range' => $post->price_range,
+                        'event_date' => $post->event_date ? \Carbon\Carbon::parse($post->event_date)->format('d/m/Y') : 'TBA',
                         'latitude' => $post->latitude,
                         'longitude' => $post->longitude,
                         'audio_path' => $post->audio_path ? asset('storage/' . $post->audio_path) : null,
@@ -91,7 +92,7 @@
                 document.addEventListener('DOMContentLoaded', () => {
                     const mapContainer = document.getElementById('radar-map-container');
                     if (mapContainer) {
-                        const map = L.map('radar-map-container').setView([40.4167, -3.7037], 12);
+                        const map = L.map('radar-map-container').setView([37.3891, -5.9845], 13);
                         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                             maxZoom: 19,
                             attribution: '© OpenStreetMap'
@@ -113,7 +114,7 @@
                                     <div class="font-mono text-xs p-1 select-none">
                                         <div class="border-b-2 border-uw-border pb-1 mb-2 font-bold text-uw-accent text-sm uppercase">${post.category}</div>
                                         <h4 class="font-serif font-black text-sm uppercase mb-2 text-uw-text leading-tight">${post.title}</h4>
-                                        <p class="mb-2 opacity-80">[AUTH: ${post.author}] // [PRICE: ${post.price_range}]</p>
+                                        <p class="mb-2 opacity-80">[AUTH: ${post.author}] // [PRICE: ${post.price_range}]<br>[DATE: ${post.event_date}]</p>
                                         <div class="flex gap-2 mt-2">
                                             <a href="${post.show_url}" class="px-2 py-1 bg-uw-accent text-black border-2 border-uw-border font-bold hover:bg-black hover:text-uw-accent transition-all text-center block text-[10px] shadow-[2px_2px_0px_0px_var(--color-border)]" style="text-decoration: none;">DETALLES >></a>
                                 `;
@@ -186,7 +187,7 @@
                         <div
                             class="border-t-2 border-uw-border p-4 bg-uw-bg/30 font-mono text-[10px] grid grid-cols-2 gap-2">
                             <div class="border border-uw-border p-1">
-                                [PRICE: {{ $post->price_range }}] // [GOERS: {{ $post->attendees()->count() }}]
+                                [PRICE: {{ $post->price_range }}] // [DATE: {{ $post->event_date ? \Carbon\Carbon::parse($post->event_date)->format('d/m/Y') : 'TBA' }}] // [GOERS: {{ $post->attendees()->count() }}]
                             </div>
                             <div class="border border-uw-border p-1 uppercase flex items-center gap-2">
                                 @if($post->user->avatar_path)

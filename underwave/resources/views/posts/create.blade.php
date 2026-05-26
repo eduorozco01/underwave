@@ -57,6 +57,13 @@
                         </div>
                     </div>
 
+                    <!-- Date & Uploads -->
+                    <div class="mb-6">
+                        <label class="block font-mono font-bold uppercase mb-2">Fecha del Evento:</label>
+                        <input type="date" name="event_date" value="{{ old('event_date') }}" required
+                            class="w-full border-2 border-uw-border bg-uw-bg text-uw-text p-3 focus:bg-uw-accent/20 outline-none transition-none font-mono">
+                    </div>
+
                     <!-- Cartel Upload -->
                     <div class="mb-6">
                         <label class="block font-mono font-bold uppercase mb-2">Cartel / Flyer (Opcional):</label>
@@ -118,8 +125,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             const pickerMapEl = document.getElementById('picker-map');
             if (pickerMapEl) {
-                // Centrado inicial por defecto en Madrid
-                const map = L.map('picker-map').setView([40.4167, -3.7037], 12);
+                // Centrado inicial por defecto en Sevilla
+                const map = L.map('picker-map').setView([37.3891, -5.9845], 13);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 19,
                     attribution: '© OpenStreetMap'

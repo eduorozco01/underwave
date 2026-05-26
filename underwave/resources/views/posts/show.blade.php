@@ -38,6 +38,10 @@
                                         <p class="font-bold border-b border-uw-border mb-1">BUDGET</p>
                                         <p>{{ $post->price_range }}</p>
                                     </div>
+                                    <div class="border-2 border-uw-border p-3 bg-uw-accent text-black shadow-brutal-sm">
+                                        <p class="font-bold border-b border-black mb-1">DATE</p>
+                                        <p>{{ $post->event_date ? \Carbon\Carbon::parse($post->event_date)->format('d/m/Y') : 'TBA' }}</p>
+                                    </div>
 
                                     <!-- ME APUNTO / CONFIRM ATTENDANCE -->
                                     <div class="border-4 border-uw-border p-3 bg-uw-card shadow-brutal-sm text-uw-text">

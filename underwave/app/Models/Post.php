@@ -18,6 +18,7 @@ class Post extends Model
         'user_id',
         'image_path',
         'audio_path',
+        'event_date',
         'latitude',
         'longitude',
     ];
