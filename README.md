@@ -18,6 +18,7 @@ Sigue estos pasos en tu terminal para levantar el entorno de desarrollo en tu m√
 **1. Clona el repositorio:**
 
 git clone https://github.com/eduorozco01/underwave.git
+
 cd underwave
 
 **2. Instala las dependencias del backend:**
