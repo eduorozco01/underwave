@@ -34,32 +34,34 @@ Sigue estos pasos para levantar el entorno de desarrollo en tu máquina:
    ```bash
    git clone [https://github.com/eduorozco01/underwave.git](https://github.com/eduorozco01/underwave.git)
    cd underwave
-Instala las dependencias del backend (PHP/Laravel):
+**Instala las dependencias del backend (PHP/Laravel):**
 
 ```Bash
-composer install
-Instala las dependencias del frontend (React/Tailwind):
+   composer install
 
-Bash
-npm install
-Configura el entorno:
-Copia el archivo de ejemplo y configura tus credenciales de base de datos MySQL.
+**Instala las dependencias del frontend (React/Tailwind):**
 
-Bash
-cp .env.example .env
-php artisan key:generate
-Ejecuta las migraciones:
+```Bash
+   npm install
 
-Bash
-php artisan migrate
-Levanta los servidores de desarrollo:
-En una terminal para el backend:
+**Configura el entorno:**
+**Copia el archivo de ejemplo y configura tus credenciales de base de datos MySQL.**
 
-Bash
-php artisan serve
-En otra terminal para compilar el frontend (Vite/Mix):
+```Bash
+   cp .env.example .env
+   php artisan key:generate
+**Ejecuta las migraciones:**
 
-Bash
-npm run dev
+```Bash
+   php artisan migrate
+**Levanta los servidores de desarrollo:**
+  ** En una terminal para el backend:**
+
+```Bash
+   php artisan serve
+**En otra terminal para compilar el frontend (Vite/Mix):**
+
+```Bash
+   npm run dev
 🤝 Contribución
 Actualmente el proyecto está en fase de desarrollo principal. Si quieres contribuir, abre un Issue o envía un Pull Request en la rama desarrollo.
