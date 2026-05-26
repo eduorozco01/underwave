@@ -1,0 +1,17 @@
+name: Auto Move Kanban
+
+on:
+  push:
+    branches:
+      - desarrollo
+
+jobs:
+  automation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Move issue to Done on commit
+        uses: alex-page/github-project-automation-plus@v0.8.3
+        with:
+          project: 'Underwave Kanban'
+          column: 'Done'
+          repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
