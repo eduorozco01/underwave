@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TransmissionController;
+use App\Http\Controllers\FanzineController;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -44,6 +45,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/transmisiones', [TransmissionController::class, 'index'])->name('transmissions.index');
     Route::post('/transmisiones', [TransmissionController::class, 'store'])->name('transmissions.store');
+    // Fanzines routes
+    Route::get('/fanzines', [FanzineController::class, 'index'])->name('fanzines.index');
+    Route::get('/fanzines/create', [FanzineController::class, 'create'])->name('fanzines.create');
+    Route::post('/fanzines', [FanzineController::class, 'store'])->name('fanzines.store');
 
     Route::post('/posts/{post}/attend', function (\App\Models\Post $post) {
         auth()->user()->attendedEvents()->toggle($post->id);

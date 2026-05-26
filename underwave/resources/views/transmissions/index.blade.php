@@ -7,7 +7,7 @@
                 <div>
                     <h2 class="font-serif text-5xl uppercase italic flex items-center gap-3 text-uw-text">
                         Transmisiones
-                        <span class="inline-flex items-center px-3 py-1 border-2 border-uw-border bg-uw-border text-uw-accent text-xs font-mono tracking-wider animate-pulse">
+                        <span class="inline-flex items-center px-3 py-1 border-2 border-uw-border bg-uw-accent text-black text-xs font-mono tracking-wider animate-pulse">
                             ● LIVE_RADAR
                         </span>
                     </h2>
@@ -70,7 +70,7 @@
                                 <span class="opacity-50">280</span>
                             </div>
 
-                            <button type="submit" class="w-full sm:w-auto bg-uw-border text-uw-bg hover:bg-uw-accent hover:text-black font-bold uppercase py-3 px-8 border-4 border-uw-border transition-colors shadow-brutal-sm active:translate-x-1 active:translate-y-1 active:shadow-none">
+                            <button type="submit" class="w-full sm:w-auto bg-uw-border text-uw-bg hover:bg-black hover:text-uw-accent font-bold uppercase py-3 px-8 border-4 border-uw-border transition-all shadow-brutal-sm active:translate-x-1 active:translate-y-1 active:shadow-none">
                                 TRANSMITIR >>
                             </button>
                         </div>
@@ -125,9 +125,7 @@
                         </div>
 
                         <!-- Card Content -->
-                        <div class="font-mono text-base text-uw-text whitespace-pre-wrap leading-relaxed py-2">
-                            {{ $transmission->content }}
-                        </div>
+                        <div class="font-mono text-base text-uw-text whitespace-pre-wrap leading-relaxed py-2 break-all">{{ $transmission->content }}</div>
 
                         <!-- Card Footer Decoration -->
                         <div class="mt-4 border-t border-dashed border-uw-border/30 pt-3 flex justify-between items-center font-mono text-[9px] opacity-60">

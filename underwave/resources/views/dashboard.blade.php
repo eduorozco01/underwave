@@ -13,7 +13,7 @@
                 </div>
                 @hasrole('Banda')
                 <a href="{{ route('posts.create') }}"
-                    class="bg-uw-accent text-uw-text border-2 border-uw-border px-6 py-2 font-mono font-bold hover:bg-uw-border hover:text-uw-bg transition-none shadow-brutal-sm active:translate-x-1 active:translate-y-1">
+                    class="bg-uw-accent text-black border-2 border-uw-border px-6 py-2 font-mono font-bold hover:bg-black hover:text-uw-accent transition-all shadow-brutal-sm active:translate-x-1 active:translate-y-1">
                     + ADD_NEW_ENTRY
                 </a>
                 @endhasrole
@@ -27,27 +27,27 @@
                     <span class="bg-uw-border text-uw-bg px-2 py-1 font-bold">FILTERS:</span>
 
                     <a href="{{ route('dashboard') }}"
-                        class="border-2 border-uw-border px-3 py-1 transition-none hover:bg-uw-border hover:text-uw-bg {{ !request('category') && !request('search') ? 'bg-uw-accent font-bold' : 'bg-uw-bg' }}">
+                        class="border-2 border-uw-border px-3 py-1 transition-all hover:bg-black hover:text-uw-accent {{ !request('category') && !request('search') ? 'bg-uw-accent text-black font-bold' : 'bg-uw-bg' }}">
                         ALL_DATA
                     </a>
 
                     <a href="{{ route('dashboard', ['category' => 'Musica']) }}"
-                        class="border-2 border-uw-border px-3 py-1 transition-none hover:bg-uw-border hover:text-uw-bg {{ request('category') == 'Musica' ? 'bg-uw-accent font-bold' : 'bg-uw-bg' }}">
+                        class="border-2 border-uw-border px-3 py-1 transition-all hover:bg-black hover:text-uw-accent {{ request('category') == 'Musica' ? 'bg-uw-accent text-black font-bold' : 'bg-uw-bg' }}">
                         MÚSICA
                     </a>
 
                     <a href="{{ route('dashboard', ['category' => 'Teatro']) }}"
-                        class="border-2 border-uw-border px-3 py-1 transition-none hover:bg-uw-border hover:text-uw-bg {{ request('category') == 'Teatro' ? 'bg-uw-accent font-bold' : 'bg-uw-bg' }}">
+                        class="border-2 border-uw-border px-3 py-1 transition-all hover:bg-black hover:text-uw-accent {{ request('category') == 'Teatro' ? 'bg-uw-accent text-black font-bold' : 'bg-uw-bg' }}">
                         TEATRO
                     </a>
 
                     <a href="{{ route('dashboard', ['category' => 'Mercadillo']) }}"
-                        class="border-2 border-uw-border px-3 py-1 transition-none hover:bg-uw-border hover:text-uw-bg {{ request('category') == 'Mercadillo' ? 'bg-uw-accent font-bold' : 'bg-uw-bg' }}">
+                        class="border-2 border-uw-border px-3 py-1 transition-all hover:bg-black hover:text-uw-accent {{ request('category') == 'Mercadillo' ? 'bg-uw-accent text-black font-bold' : 'bg-uw-bg' }}">
                         MERCADILLO
                     </a>
 
                     <a href="{{ route('dashboard', ['category' => 'Arte']) }}"
-                        class="border-2 border-uw-border px-3 py-1 transition-none hover:bg-uw-border hover:text-uw-bg {{ request('category') == 'Arte' ? 'bg-uw-accent font-bold' : 'bg-uw-bg' }}">
+                        class="border-2 border-uw-border px-3 py-1 transition-all hover:bg-black hover:text-uw-accent {{ request('category') == 'Arte' ? 'bg-uw-accent text-black font-bold' : 'bg-uw-bg' }}">
                         ARTE
                     </a>
                 </div>
@@ -57,7 +57,7 @@
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="SCAN_DATABASE..."
                         class="p-2 font-mono text-sm w-full md:w-64 outline-none focus:bg-uw-accent border-none bg-uw-card text-uw-text">
                     <button type="submit"
-                        class="bg-uw-border text-uw-bg px-4 font-mono font-bold hover:text-uw-accent transition-none">
+                        class="bg-uw-border text-uw-bg px-4 font-mono font-bold hover:bg-black hover:text-uw-accent transition-all">
                         SCAN >>
                     </button>
                 </form>
@@ -115,7 +115,7 @@
                                         <h4 class="font-serif font-black text-sm uppercase mb-2 text-uw-text leading-tight">${post.title}</h4>
                                         <p class="mb-2 opacity-80">[AUTH: ${post.author}] // [PRICE: ${post.price_range}]</p>
                                         <div class="flex gap-2 mt-2">
-                                            <a href="${post.show_url}" class="px-2 py-1 bg-uw-accent text-black border-2 border-uw-border font-bold hover:bg-uw-border hover:text-uw-bg text-center block text-[10px] shadow-[2px_2px_0px_0px_var(--color-border)]" style="text-decoration: none;">DETALLES >></a>
+                                            <a href="${post.show_url}" class="px-2 py-1 bg-uw-accent text-black border-2 border-uw-border font-bold hover:bg-black hover:text-uw-accent transition-all text-center block text-[10px] shadow-[2px_2px_0px_0px_var(--color-border)]" style="text-decoration: none;">DETALLES >></a>
                                 `;
                                 if (post.audio_path) {
                                     popupHtml += `
@@ -174,7 +174,7 @@
                                 @if($post->audio_path)
                                     <div class="mb-4">
                                         <button @click="$dispatch('play-track', { url: '{{ asset('storage/' . $post->audio_path) }}', title: '{{ $post->title }}', band: '{{ $post->user->name }}' })"
-                                            class="w-full font-mono text-xs uppercase px-3 py-2 border-4 border-uw-border bg-uw-accent font-bold hover:bg-uw-border hover:text-uw-bg shadow-[4px_4px_0px_0px_var(--color-border)] active:translate-y-[1px] active:translate-x-[1px]">
+                                            class="w-full font-mono text-xs uppercase px-3 py-2 border-4 border-uw-border bg-uw-accent text-black font-bold hover:bg-black hover:text-uw-accent transition-all shadow-[4px_4px_0px_0px_var(--color-border)] active:translate-y-[1px] active:translate-x-[1px]">
                                             🔊 ESCUCHAR MAQUETA
                                         </button>
                                     </div>

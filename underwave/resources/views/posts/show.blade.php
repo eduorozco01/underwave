@@ -65,7 +65,7 @@
                                                 <p class="text-xs opacity-60 mt-1">Dale al play para reproducir la maqueta de esta banda.</p>
                                             </div>
                                             <button @click="$dispatch('play-track', { url: '{{ asset('storage/' . $post->audio_path) }}', title: '{{ $post->title }}', band: '{{ $post->user->name }}' })"
-                                                class="font-mono text-sm uppercase px-4 py-2 border-2 border-uw-border bg-uw-accent font-bold hover:bg-uw-border hover:text-uw-bg transition-none shadow-[2px_2px_0px_0px_var(--color-border)] active:translate-y-[1px] active:translate-x-[1px]">
+                                                class="font-mono text-sm uppercase px-4 py-2 border-2 border-uw-border bg-uw-accent text-black font-bold hover:bg-black hover:text-uw-accent transition-all shadow-[2px_2px_0px_0px_var(--color-border)] active:translate-y-[1px] active:translate-x-[1px]">
                                                 🔊 PLAY_DEMO
                                             </button>
                                         </div>
@@ -80,7 +80,7 @@
                                 <div class="mt-12 border-t-4 border-uw-border pt-6 flex gap-4">
 
                                     <a href="{{ route('posts.edit', $post) }}"
-                                        class="bg-uw-accent text-black px-6 py-2 border-4 border-uw-border font-mono font-bold hover:bg-uw-border hover:text-uw-bg transition-none shadow-brutal-sm active:translate-x-1 active:translate-y-1">
+                                        class="bg-uw-accent text-black px-6 py-2 border-4 border-uw-border font-mono font-bold hover:bg-black hover:text-uw-accent transition-all shadow-brutal-sm active:translate-x-1 active:translate-y-1">
                                         [~] EDIT_RECORD
                                     </a>
                                     <form action="{{ route('posts.destroy', $post) }}" method="POST"
@@ -108,7 +108,7 @@
                                             class="w-full p-4 font-mono outline-none border-b-4 border-uw-border bg-uw-card text-uw-text resize-none focus:bg-uw-accent/20"></textarea>
                                         <div class="bg-uw-bg p-2 flex justify-end">
                                             <button type="submit"
-                                                class="bg-uw-border text-uw-bg px-6 py-2 font-mono font-bold hover:bg-uw-accent hover:text-black transition-none uppercase text-sm">
+                                                class="bg-uw-border text-uw-bg px-6 py-2 font-mono font-bold hover:bg-black hover:text-uw-accent transition-all uppercase text-sm">
                                                 TRANSMIT >>
                                             </button>
                                         </div>

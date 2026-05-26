@@ -20,6 +20,9 @@
                     <x-nav-link :href="route('transmissions.index')" :active="request()->routeIs('transmissions.index')">
                         {{ __('Transmisiones') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('fanzines.index')" :active="request()->routeIs('fanzines.index')">
+                        {{ __('FANZINES') }}
+                    </x-nav-link>
                 </div>
             </div>
             <!-- Theme Switcher & Settings Dropdown -->
@@ -142,6 +145,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('transmissions.index')" :active="request()->routeIs('transmissions.index')">
                 {{ __('Transmisiones') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('fanzines.index')" :active="request()->routeIs('fanzines.index')">
+                {{ __('FANZINES') }}
             </x-responsive-nav-link>
         </div>
 

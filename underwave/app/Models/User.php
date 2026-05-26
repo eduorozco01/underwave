@@ -59,4 +59,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Post::class, 'post_user')->withTimestamps();
     }
+    public function fanzines()
+    {
+        return $this->hasMany(Fanzine::class);
+    }
+
 }

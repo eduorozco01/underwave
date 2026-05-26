@@ -38,8 +38,8 @@ class PostFactory extends Factory
             'price_range' => $this->faker->randomElement($prices),
             // Las imágenes falsas a veces dan problemas de carga, así que lo dejamos a null para que salga nuestro patrón geométrico por defecto
             'image_path' => null,
-            'latitude' => $this->faker->latitude(40.38000000, 40.46000000),
-            'longitude' => $this->faker->longitude(-3.73000000, -3.67000000),
+            'latitude' => $this->faker->latitude(37.36000000, 37.42000000),
+            'longitude' => $this->faker->longitude(-6.02000000, -5.95000000),
         ];
     }
 }
