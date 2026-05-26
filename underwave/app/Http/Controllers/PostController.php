@@ -10,6 +10,9 @@ class PostController extends Controller
 {
     public function create()
     {
+        if (!Auth::user()->hasRole('Banda')) {
+            abort(403, 'SYSTEM_ERROR: SOLO LAS BANDAS PUEDEN PUBLICAR EVENTOS.');
+        }
         return view('posts.create');
     }
 
@@ -20,17 +23,30 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        if (!Auth::user()->hasRole('Banda')) {
+            abort(403, 'SYSTEM_ERROR: SOLO LAS BANDAS PUEDEN PUBLICAR EVENTOS.');
+        }
+
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
             'category' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20480', // Validamos que sea una imagen de max 20MB
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20480', // Max 20MB image
+            'audio' => 'nullable|file|mimes:mp3,wav,ogg|max:40960', // Max 40MB audio
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
         ]);
 
         $imagePath = null;
         if ($request->hasFile('image')) {
             // Guarda la imagen y nos devuelve la ruta exacta
             $imagePath = $request->file('image')->store('post_images', 'public');
+        }
+
+        $audioPath = null;
+        if ($request->hasFile('audio')) {
+            // Guarda el audio y nos devuelve la ruta exacta
+            $audioPath = $request->file('audio')->store('post_audios', 'public');
         }
 
         Post::create([
@@ -40,6 +56,9 @@ class PostController extends Controller
             'price_range' => $request->price_range,
             'user_id' => Auth::id(),
             'image_path' => $imagePath, // Guardamos la ruta en la DB
+            'audio_path' => $audioPath,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
         ]);
 
         return redirect()->route('dashboard')->with('success', 'Post creado correctamente');

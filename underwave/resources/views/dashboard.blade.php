@@ -1,5 +1,9 @@
 <x-app-layout>
-    <div class="py-12 bg-uw-bg">
+    <!-- Leaflet JS & CSS CDNs -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <div x-data class="py-12 bg-uw-bg">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             <div class="mb-10 flex justify-between items-end border-b-4 border-uw-border pb-4">
@@ -7,10 +11,12 @@
                     <h2 class="font-serif text-5xl uppercase italic text-uw-text">Live_Feed</h2>
                     <p class="font-mono text-sm opacity-60 mt-2 text-uw-text">[ RECORDS_FOUND: {{ $posts->count() }} ]</p>
                 </div>
+                @hasrole('Banda')
                 <a href="{{ route('posts.create') }}"
                     class="bg-uw-accent text-uw-text border-2 border-uw-border px-6 py-2 font-mono font-bold hover:bg-uw-border hover:text-uw-bg transition-none shadow-brutal-sm active:translate-x-1 active:translate-y-1">
                     + ADD_NEW_ENTRY
                 </a>
+                @endhasrole
             </div>
 
             <!-- FILTERS & SCANNER PANEL -->
@@ -57,6 +63,69 @@
                 </form>
             </div>
 
+            <!-- DYNAMIC RADAR MAP -->
+            @php
+                $mapData = collect($posts->items())->map(function($post) {
+                    return [
+                        'id' => $post->id,
+                        'title' => $post->title,
+                        'category' => $post->category,
+                        'price_range' => $post->price_range,
+                        'latitude' => $post->latitude,
+                        'longitude' => $post->longitude,
+                        'audio_path' => $post->audio_path ? asset('storage/' . $post->audio_path) : null,
+                        'author' => $post->user->name ?? 'UNKNOWN_ENTITY',
+                        'show_url' => route('posts.show', $post),
+                    ];
+                })->toArray();
+            @endphp
+            <div class="mb-10 border-4 border-uw-border shadow-brutal bg-[#0D0C0F]" x-data="{ mapOpen: true }">
+                <div class="bg-uw-border text-uw-bg p-3 font-mono text-sm flex justify-between items-center cursor-pointer select-none" @click="mapOpen = !mapOpen; if(mapOpen) { $nextTick(() => { window.dispatchEvent(new Event('resize')); }) }">
+                    <span class="font-bold">🌐 RADAR_MAP // LOCATION_SCANNER</span>
+                    <span x-text="mapOpen ? '[- HIDE_RADAR_MAP]' : '[+ SHOW_RADAR_MAP]'"></span>
+                </div>
+                <div x-show="mapOpen" class="w-full h-96 border-t-4 border-uw-border neo-brutal-map relative bg-black" id="radar-map-container"></div>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const mapContainer = document.getElementById('radar-map-container');
+                    if (mapContainer) {
+                        const map = L.map('radar-map-container').setView([40.4167, -3.7037], 12);
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            maxZoom: 19,
+                            attribution: '© OpenStreetMap'
+                        }).addTo(map);
+
+                        const mapPosts = @json($mapData);
+
+                        mapPosts.forEach(post => {
+                            if (post.latitude && post.longitude) {
+                                const marker = L.marker([post.latitude, post.longitude]).addTo(map);
+                                let popupHtml = `
+                                    <div class="font-mono text-xs p-1 select-none">
+                                        <div class="border-b-2 border-uw-border pb-1 mb-2 font-bold text-uw-accent text-sm uppercase">${post.category}</div>
+                                        <h4 class="font-serif font-black text-sm uppercase mb-2 text-uw-text leading-tight">${post.title}</h4>
+                                        <p class="mb-2 opacity-80">[AUTH: ${post.author}] // [PRICE: ${post.price_range}]</p>
+                                        <div class="flex gap-2 mt-2">
+                                            <a href="${post.show_url}" class="px-2 py-1 bg-uw-accent text-black border-2 border-uw-border font-bold hover:bg-uw-border hover:text-uw-bg text-center block text-[10px] shadow-[2px_2px_0px_0px_var(--color-border)]" style="text-decoration: none;">DETALLES >></a>
+                                `;
+                                if (post.audio_path) {
+                                    popupHtml += `
+                                        <button onclick="window.dispatchEvent(new CustomEvent('play-track', { detail: { url: '${post.audio_path}', title: '${post.title.replace(/'/g, "\\'")}', band: '${post.author.replace(/'/g, "\\'")}' } }))" class="px-2 py-1 bg-uw-border text-uw-bg border-2 border-uw-border font-bold hover:bg-uw-accent hover:text-black text-center text-[10px] shadow-[2px_2px_0px_0px_var(--color-accent)]">🔊 ESCUCHAR</button>
+                                    `;
+                                }
+                                popupHtml += `
+                                        </div>
+                                    </div>
+                                `;
+                                marker.bindPopup(popupHtml);
+                            }
+                        });
+                    }
+                });
+            </script>
+
             <!-- MASONRY CARDS container -->
             <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8 p-4 bg-uw-bg" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\' opacity=\'0.05\'/%3E%3C/svg%3E');">
                 @foreach($posts as $post)
@@ -95,25 +164,14 @@
                                 <p class="font-mono text-sm line-clamp-3 opacity-80 mb-6">
                                     {{ $post->content }}
                                 </p>
-                            </div>
-
-                            <!-- ME APUNTO / ATTEND EVENT BUTTON -->
-                            <div class="mt-4 border-t-4 border-uw-border pt-4">
-                                <form method="POST" action="{{ route('posts.attend', $post) }}">
-                                    @csrf
-                                    @php
-                                        // Comprobamos si el usuario actual ya está apuntado a este evento
-                                        $isAttending = auth()->user()->attendedEvents->contains($post);
-                                    @endphp
-                                    
-                                    <button type="submit" class="w-full font-mono font-bold uppercase py-2 border-4 border-uw-border transition-transform hover:translate-y-1 hover:translate-x-1 shadow-[4px_4px_0px_0px_var(--color-border)] hover:shadow-none 
-                                        {{ $isAttending ? 'bg-[#ff3333] text-white' : 'bg-uw-accent text-black hover:bg-uw-border hover:text-uw-bg' }}">
-                                        {{ $isAttending ? 'NO VOY A IR [X]' : '¡ME APUNTO! >>' }}
-                                    </button>
-                                </form>
-                                <p class="text-xs font-mono mt-2 text-right">
-                                    Asistentes confirmados: {{ $post->attendees()->count() }}
-                                </p>
+                                @if($post->audio_path)
+                                    <div class="mb-4">
+                                        <button @click="$dispatch('play-track', { url: '{{ asset('storage/' . $post->audio_path) }}', title: '{{ $post->title }}', band: '{{ $post->user->name }}' })"
+                                            class="w-full font-mono text-xs uppercase px-3 py-2 border-4 border-uw-border bg-uw-accent font-bold hover:bg-uw-border hover:text-uw-bg shadow-[4px_4px_0px_0px_var(--color-border)] active:translate-y-[1px] active:translate-x-[1px]">
+                                            🔊 ESCUCHAR MAQUETA
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
                         </div>
 
@@ -121,7 +179,7 @@
                         <div
                             class="border-t-2 border-uw-border p-4 bg-uw-bg/30 font-mono text-[10px] grid grid-cols-2 gap-2">
                             <div class="border border-uw-border p-1">
-                                [PRICE_INDEX: {{ $post->price_range }}]
+                                [PRICE: {{ $post->price_range }}] // [GOERS: {{ $post->attendees()->count() }}]
                             </div>
                             <div class="border border-uw-border p-1 uppercase flex items-center gap-2">
                                 @if($post->user->avatar_path)
