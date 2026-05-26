@@ -125,6 +125,13 @@
                     attribution: '© OpenStreetMap'
                 }).addTo(map);
 
+                const brutalIcon = L.divIcon({
+                    className: 'brutal-icon',
+                    html: `<div class="w-4 h-4 bg-uw-accent border-2 border-uw-border shadow-[2px_2px_0px_0px_var(--color-border)] hover:scale-110 hover:bg-uw-border transition-all"></div>`,
+                    iconSize: [16, 16],
+                    iconAnchor: [8, 8]
+                });
+
                 let marker = null;
 
                 // Cargar valores antiguos si el formulario falla y se recarga
@@ -132,7 +139,7 @@
                 const oldLng = document.getElementById('longitude').value;
                 if (oldLat && oldLng) {
                     const latlng = L.latLng(oldLat, oldLng);
-                    marker = L.marker(latlng).addTo(map);
+                    marker = L.marker(latlng, { icon: brutalIcon }).addTo(map);
                     map.setView(latlng, 14);
                 }
 
@@ -146,7 +153,7 @@
                     if (marker) {
                         marker.setLatLng(e.latlng);
                     } else {
-                        marker = L.marker(e.latlng).addTo(map);
+                        marker = L.marker(e.latlng, { icon: brutalIcon }).addTo(map);
                     }
                 });
             }

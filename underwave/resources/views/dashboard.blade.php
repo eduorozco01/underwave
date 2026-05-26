@@ -99,9 +99,16 @@
 
                         const mapPosts = @json($mapData);
 
+                        const brutalIcon = L.divIcon({
+                            className: 'brutal-icon',
+                            html: `<div class="w-4 h-4 bg-uw-accent border-2 border-uw-border shadow-[2px_2px_0px_0px_var(--color-border)] hover:scale-110 hover:bg-uw-border transition-all"></div>`,
+                            iconSize: [16, 16],
+                            iconAnchor: [8, 8]
+                        });
+
                         mapPosts.forEach(post => {
                             if (post.latitude && post.longitude) {
-                                const marker = L.marker([post.latitude, post.longitude]).addTo(map);
+                                const marker = L.marker([post.latitude, post.longitude], { icon: brutalIcon }).addTo(map);
                                 let popupHtml = `
                                     <div class="font-mono text-xs p-1 select-none">
                                         <div class="border-b-2 border-uw-border pb-1 mb-2 font-bold text-uw-accent text-sm uppercase">${post.category}</div>

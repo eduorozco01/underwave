@@ -53,9 +53,10 @@ body {
     border: 3px solid var(--color-border);
 }
 
-/* FILTRO CYBERPUNK Y2K PARA MAPAS LEAFLET */
-.neo-brutal-map .leaflet-tile-container {
-    filter: invert(100%) hue-rotate(180deg) brightness(85%) contrast(140%) saturate(120%);
+/* FILTRO RADAR TÁCTICO CYBERPUNK/Y2K PARA LEAFLET */
+.leaflet-container {
+    filter: grayscale(100%) invert(100%) contrast(150%);
+    background-color: #000000 !important;
 }
 
 /* POPUPS NEO-BRUTALISTAS PARA LEAFLET */
