@@ -10,19 +10,33 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+use Spatie\Permission\Models\Role;
+
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        // Crear roles
+        $rolePublico = Role::firstOrCreate(['name' => 'Público']);
+        $roleBanda = Role::firstOrCreate(['name' => 'Banda']);
+
         // 1. Tu usuario maestro
         $admin = \App\Models\User::factory()->create([
             'name' => 'Edu SystemAdmin',
             'email' => 'edu@underwave.local',
             'password' => bcrypt('password'),
         ]);
+        $admin->assignRole('Banda');
 
         // 2. Usuarios simulados
         $users = \App\Models\User::factory(10)->create();
+        $users->each(function ($user, $index) {
+            if ($index % 2 == 0) {
+                $user->assignRole('Banda');
+            } else {
+                $user->assignRole('Público');
+            }
+        });
         $allUsers = $users->push($admin);
 
         // 👇 LA MAGIA DE LA API APLICADA A LOS AVATARES 👇
