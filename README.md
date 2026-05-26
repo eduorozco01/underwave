@@ -36,7 +36,7 @@ Sigue estos pasos para levantar el entorno de desarrollo en tu máquina:
    cd underwave
 Instala las dependencias del backend (PHP/Laravel):
 
-Bash
+```Bash
 composer install
 Instala las dependencias del frontend (React/Tailwind):
 
