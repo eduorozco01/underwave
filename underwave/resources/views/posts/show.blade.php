@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="py-12 bg-uw-bg min-h-screen">
+    <div x-data class="py-12 bg-uw-bg min-h-screen">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 text-uw-text">
 
             <a href="{{ route('dashboard') }}"
@@ -38,9 +38,39 @@
                                         <p class="font-bold border-b border-uw-border mb-1">BUDGET</p>
                                         <p>{{ $post->price_range }}</p>
                                     </div>
+
+                                    <!-- ME APUNTO / CONFIRM ATTENDANCE -->
+                                    <div class="border-4 border-uw-border p-3 bg-uw-card shadow-brutal-sm text-uw-text">
+                                        <form method="POST" action="{{ route('posts.attend', $post) }}">
+                                            @csrf
+                                            @php
+                                                $isAttending = auth()->user()->attendedEvents->contains($post);
+                                            @endphp
+                                            <button type="submit" class="w-full font-mono font-bold uppercase py-2 border-2 border-uw-border transition-transform hover:translate-y-1 hover:translate-x-1 shadow-[2px_2px_0px_0px_var(--color-border)] hover:shadow-none 
+                                                {{ $isAttending ? 'bg-[#ff3333] text-white' : 'bg-uw-accent text-black hover:bg-uw-border hover:text-uw-bg' }}">
+                                                {{ $isAttending ? 'NO VOY [X]' : '¡ME APUNTO! >>' }}
+                                            </button>
+                                        </form>
+                                        <p class="text-[10px] font-mono mt-2 text-right opacity-65">
+                                            CONFIRMADOS: {{ $post->attendees()->count() }}
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <div class="md:col-span-3">
+                                    @if($post->audio_path)
+                                        <div class="mb-6 p-4 border-4 border-uw-border bg-uw-card shadow-brutal-sm flex items-center justify-between gap-4">
+                                            <div class="font-mono text-sm">
+                                                <p class="font-bold text-uw-accent uppercase">🎧 DEMO_MAQUETA_DETECTED</p>
+                                                <p class="text-xs opacity-60 mt-1">Dale al play para reproducir la maqueta de esta banda.</p>
+                                            </div>
+                                            <button @click="$dispatch('play-track', { url: '{{ asset('storage/' . $post->audio_path) }}', title: '{{ $post->title }}', band: '{{ $post->user->name }}' })"
+                                                class="font-mono text-sm uppercase px-4 py-2 border-2 border-uw-border bg-uw-accent font-bold hover:bg-uw-border hover:text-uw-bg transition-none shadow-[2px_2px_0px_0px_var(--color-border)] active:translate-y-[1px] active:translate-x-[1px]">
+                                                🔊 PLAY_DEMO
+                                            </button>
+                                        </div>
+                                    @endif
+
                                     <p class="font-mono text-lg leading-relaxed whitespace-pre-line">
                                         {{ $post->content }}
                                     </p>

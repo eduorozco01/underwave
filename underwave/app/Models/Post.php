@@ -10,14 +10,16 @@ class Post extends Model
 {
     use HasFactory;
 
-    // Campos que permitimos guardar desde el formulario
     protected $fillable = [
         'title',
         'content',
         'category',
         'price_range',
         'user_id',
-        'image_path'
+        'image_path',
+        'audio_path',
+        'latitude',
+        'longitude',
     ];
 
     public function user()
