@@ -32,6 +32,7 @@ npm install
 **4. Configura el entorno (Copia el archivo de ejemplo y configura tu base de datos):**
 
 cp .env.example .env
+
 php artisan key:generate
 
 **5. Ejecuta las migraciones:**
