@@ -46,7 +46,8 @@
         </main>
     </div>
 
-    <!-- NEO-WINAMP AUDIO PLAYER -->
+    <!-- REPRODUCTOR DE AUDIO ESTILO WINAMP (NEO-WINAMP) -->
+    <!-- Le pedí a la IA que me ayudara a montar la lógica en Alpine.js para controlar el reproductor <audio> nativo de HTML5 de forma reactiva -->
     <div x-data="{
             isPlaying: false,
             audioUrl: '',

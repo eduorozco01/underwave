@@ -40,13 +40,14 @@ class PostController extends Controller
 
         $imagePath = null;
         if ($request->hasFile('image')) {
-            // Guarda la imagen y nos devuelve la ruta exacta
+            // Guardo la imagen en el disco público y me quedo con la ruta exacta para la BD
             $imagePath = $request->file('image')->store('post_images', 'public');
         }
 
         $audioPath = null;
         if ($request->hasFile('audio')) {
-            // Guarda el audio y nos devuelve la ruta exacta
+            // Hago lo mismo con el audio, lo guardo en una carpeta separada
+            // Aquí la IA me dio la idea de usar el disco 'public' para que luego se pueda servir fácilmente por web
             $audioPath = $request->file('audio')->store('post_audios', 'public');
         }
 
@@ -57,7 +58,7 @@ class PostController extends Controller
             'price_range' => $request->price_range,
             'event_date' => $request->event_date,
             'user_id' => Auth::id(),
-            'image_path' => $imagePath, // Guardamos la ruta en la DB
+            'image_path' => $imagePath, // Guardo la ruta generada arriba en el registro del post
             'audio_path' => $audioPath,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
@@ -67,7 +68,7 @@ class PostController extends Controller
     }
     public function destroy(Post $post)
     {
-        // Medida de seguridad: ¿Es el usuario actual el dueño del post?
+        // Medida de seguridad básica: compruebo que el usuario que intenta borrar el post es realmente el dueño
         if ($post->user_id !== Auth::id()) {
             abort(403, 'SYSTEM_ERROR: PERMISO DENEGADO.');
         }

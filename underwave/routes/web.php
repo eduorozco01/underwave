@@ -15,15 +15,16 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function (Request $request) {
-    // 1. Iniciamos la consulta a la base de datos
+    // 1. Inicio la consulta base para traer los posts (eventos/fanzines)
     $query = Post::query();
 
-    // 2. Si el usuario hace clic en una categoría, filtramos por ella
+    // 2. Compruebo si he recibido una categoría por la URL y filtro la consulta
     if ($request->has('category') && $request->category != '') {
         $query->where('category', $request->category);
     }
 
-    // 3. Si el usuario escribe algo en el buscador, buscamos en título y contenido
+    // 3. Buscador: busco coincidencias tanto en el título como en el contenido del post
+    // Aquí tuve un poco de ayuda de la IA porque no estaba seguro de cómo hacer el OR correctamente con Laravel
     if ($request->has('search') && $request->search != '') {
         $query->where(function ($q) use ($request) {
             $q->where('title', 'like', '%' . $request->search . '%')
@@ -31,7 +32,7 @@ Route::get('/dashboard', function (Request $request) {
         });
     }
 
-    // 4. Obtenemos los resultados de 9 en 9, manteniendo los filtros en la URL
+    // 4. Paginación: saco 9 resultados por página y mantengo los parámetros de la URL para que no se pierdan al cambiar de página
     $posts = $query->latest()->paginate(9)->withQueryString();
     return view('dashboard', compact('posts'));
 })->middleware(['auth', 'verified'])->name('dashboard');

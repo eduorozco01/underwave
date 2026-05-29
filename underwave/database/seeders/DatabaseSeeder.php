@@ -39,18 +39,18 @@ class DatabaseSeeder extends Seeder
         });
         $allUsers = $users->push($admin);
 
-        // 👇 LA MAGIA DE LA API APLICADA A LOS AVATARES 👇
+        // Integración con la API de DiceBear para autogenerar los avatares estilo pixel-art
+        // Aquí la IA me echó un cable para iterar sobre los usuarios y limpiar la URL correctamente
         $allUsers->each(function ($user) {
-            // Limpiamos el nombre para que la URL no se rompa con espacios
+            // Limpio el nombre para que la URL no se rompa con los espacios
             $seed = urlencode($user->name);
             
-            // Llamamos a la API de DiceBear con el estilo pixel-art
+            // Llamo a la API de DiceBear
             $avatarUrl = "https://api.dicebear.com/8.x/pixel-art/svg?seed={$seed}";
             
-            // Guardamos la URL directamente en la base de datos
+            // Guardo la URL del avatar directamente en mi base de datos
             $user->update(['avatar_path' => $avatarUrl]);
         });
-        // 👆 FIN DE LA MAGIA 👆
 
         // 3. Crear Posts y Comentarios
         \App\Models\Post::factory(30)->recycle($allUsers)->create()->each(function ($post) use ($allUsers) {
