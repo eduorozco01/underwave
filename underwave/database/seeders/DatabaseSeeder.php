@@ -60,6 +60,10 @@ class DatabaseSeeder extends Seeder
                 'user_id' => $allUsers->random()->id,
             ]);
         });
+
+        // 4. Otros Seeders (Fanzines y Transmisiones)
+        (new FanzineSeeder)->run();
+        (new TransmissionSeeder)->run();
     }
 }
 

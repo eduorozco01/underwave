@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>UnderWave - El Sonido Underground</title>
+    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
 
     <!-- Theme Initialization to prevent flash of unstyled content -->
     <script>
@@ -23,7 +24,7 @@
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-mono antialiased bg-uw-bg text-uw-text overflow-hidden selection:bg-uw-accent selection:text-black">
+<body class="font-mono antialiased bg-uw-bg text-uw-text overflow-x-hidden selection:bg-uw-accent selection:text-black">
     
     <!-- Decorative Grid Background -->
     <div class="fixed inset-0 z-0 pointer-events-none opacity-20" style="background-image: radial-gradient(var(--color-border) 2px, transparent 2px); background-size: 30px 30px;"></div>
@@ -32,7 +33,7 @@
         
         <!-- Main Logo / Title -->
         <div class="mb-12 relative group cursor-default">
-            <h1 class="font-serif font-black text-6xl md:text-8xl lg:text-[10rem] uppercase tracking-tighter text-uw-text bg-uw-accent px-6 py-2 border-8 border-uw-border shadow-[12px_12px_0px_0px_var(--color-border)] transform -rotate-3 transition-transform duration-300 group-hover:rotate-0 group-hover:scale-105">
+            <h1 class="font-serif font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl 2xl:text-[10rem] leading-none whitespace-nowrap uppercase tracking-tighter text-uw-text bg-uw-accent px-4 py-2 sm:px-6 md:py-4 border-4 sm:border-8 border-uw-border shadow-[8px_8px_0px_0px_var(--color-border)] sm:shadow-[12px_12px_0px_0px_var(--color-border)] transform -rotate-3 transition-transform duration-300 group-hover:rotate-0 group-hover:scale-105 max-w-full">
                 UnderWave
             </h1>
             <div class="absolute -bottom-6 -right-6 bg-uw-card border-4 border-uw-border px-4 py-2 text-xl font-bold transform rotate-6 shadow-brutal-sm">

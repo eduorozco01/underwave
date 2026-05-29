@@ -24,7 +24,22 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'name' => fake()->randomElement([
+                'Curro',
+                'El Nene de Triana',
+                'Er Migue',
+                'Juanma "El Compadre"',
+                'La Pili de San Pablo',
+                'El Pescaíto',
+                'Paco "El Chispas"',
+                'Joselito "Mediavuelta"',
+                'Kiko "Er Púa"',
+                'El Cabesa',
+                'Mari "La del Primero"',
+                'Antonio "Er Coleta"',
+                'El Killo',
+                'Lola "La Terremoto"'
+            ]),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),

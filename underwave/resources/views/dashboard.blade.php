@@ -8,8 +8,8 @@
 
             <div class="mb-10 flex justify-between items-end border-b-4 border-uw-border pb-4">
                 <div>
-                    <h2 class="font-serif text-5xl uppercase italic text-uw-text">Live_Feed</h2>
-                    <p class="font-mono text-sm opacity-60 mt-2 text-uw-text">[ RECORDS_FOUND: {{ $posts->count() }} ]</p>
+                    <h2 class="font-serif font-black text-4xl text-uw-text uppercase tracking-tighter bg-uw-card px-4 py-2 border-4 border-uw-border shadow-brutal inline-block">TABLÓN DE EVENTOS</h2>
+                    <p class="font-mono text-sm opacity-60 mt-4 text-uw-text whitespace-nowrap">[ RECORDS_FOUND: {{ $posts->count() }} ]</p>
                 </div>
                 @hasrole('Banda')
                 <a href="{{ route('posts.create') }}"
