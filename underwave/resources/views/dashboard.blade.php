@@ -6,14 +6,14 @@
     <div x-data class="py-12 bg-uw-bg">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            <div class="mb-10 flex justify-between items-end border-b-4 border-uw-border pb-4">
-                <div>
-                    <h2 class="font-serif font-black text-4xl text-uw-text uppercase tracking-tighter bg-uw-card px-4 py-2 border-4 border-uw-border shadow-brutal inline-block">TABLÓN DE EVENTOS</h2>
-                    <p class="font-mono text-sm opacity-60 mt-4 text-uw-text whitespace-nowrap">[ RECORDS_FOUND: {{ $posts->count() }} ]</p>
+            <div class="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b-4 border-uw-border pb-4">
+                <div class="max-w-full overflow-hidden">
+                    <h2 class="font-serif font-black text-2xl sm:text-3xl md:text-4xl text-uw-text uppercase tracking-tighter bg-uw-card px-4 py-2 border-4 border-uw-border shadow-brutal inline-block max-w-full break-words">TABLÓN DE EVENTOS</h2>
+                    <p class="font-mono text-sm opacity-60 mt-4 text-uw-text break-words">[ RECORDS_FOUND: {{ $posts->count() }} ]</p>
                 </div>
                 @hasrole('Banda')
                 <a href="{{ route('posts.create') }}"
-                    class="bg-uw-accent text-black border-2 border-uw-border px-6 py-2 font-mono font-bold hover:bg-black hover:text-uw-accent transition-all shadow-brutal-sm active:translate-x-1 active:translate-y-1">
+                    class="bg-uw-accent text-black border-2 border-uw-border px-6 py-2 font-mono font-bold hover:bg-black hover:text-uw-accent transition-all shadow-brutal-sm active:translate-x-1 active:translate-y-1 w-full md:w-auto text-center">
                     + ADD_NEW_ENTRY
                 </a>
                 @endhasrole
@@ -53,11 +53,11 @@
                 </div>
 
                 <form action="{{ route('dashboard') }}" method="GET"
-                    class="flex w-full md:w-auto border-2 border-uw-border bg-uw-card">
+                    class="flex flex-col sm:flex-row w-full md:w-auto border-2 border-uw-border bg-uw-card">
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="SCAN_DATABASE..."
-                        class="p-2 font-mono text-sm w-full md:w-64 outline-none focus:bg-uw-accent border-none bg-uw-card text-uw-text">
+                        class="p-2 font-mono text-sm w-full outline-none focus:bg-uw-accent border-none bg-uw-card text-uw-text sm:w-48 md:w-64 min-w-0">
                     <button type="submit"
-                        class="bg-uw-border text-uw-bg px-4 font-mono font-bold hover:bg-black hover:text-uw-accent transition-all">
+                        class="bg-uw-border text-uw-bg px-4 py-2 font-mono font-bold hover:bg-black hover:text-uw-accent transition-all border-t-2 sm:border-t-0 sm:border-l-2 border-uw-border whitespace-nowrap">
                         SCAN >>
                     </button>
                 </form>
@@ -81,9 +81,9 @@
                 })->toArray();
             @endphp
             <div class="mb-10 border-4 border-uw-border shadow-brutal bg-[#0D0C0F]" x-data="{ mapOpen: true }">
-                <div class="bg-uw-border text-uw-bg p-3 font-mono text-sm flex justify-between items-center cursor-pointer select-none" @click="mapOpen = !mapOpen; if(mapOpen) { $nextTick(() => { window.dispatchEvent(new Event('resize')); }) }">
-                    <span class="font-bold">🌐 RADAR_MAP // LOCATION_SCANNER</span>
-                    <span x-text="mapOpen ? '[- HIDE_RADAR_MAP]' : '[+ SHOW_RADAR_MAP]'"></span>
+                <div class="bg-uw-border text-uw-bg p-3 font-mono text-xs sm:text-sm flex flex-col sm:flex-row justify-between items-start sm:items-center cursor-pointer select-none gap-2" @click="mapOpen = !mapOpen; if(mapOpen) { $nextTick(() => { window.dispatchEvent(new Event('resize')); }) }">
+                    <span class="font-bold break-all">🌐 RADAR_MAP // LOCATION_SCANNER</span>
+                    <span x-text="mapOpen ? '[- HIDE_RADAR_MAP]' : '[+ SHOW_RADAR_MAP]'" class="whitespace-nowrap"></span>
                 </div>
                 <div x-show="mapOpen" class="w-full h-96 border-t-4 border-uw-border neo-brutal-map relative bg-black" id="radar-map-container"></div>
             </div>
